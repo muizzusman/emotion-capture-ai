@@ -1,5 +1,6 @@
 import anthropic
 import base64
+import httpx
 import json
 import os
 from PIL import Image
@@ -9,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 
 
 # ─────────────────────────────────────────────────
@@ -56,7 +57,7 @@ def analyze_emotion(image_bytes: bytes) -> dict:
 
         response = client.messages.create(
             model=MODEL,
-            max_tokens=700,
+            max_tokens=1024,
             system=(
                 "You are an expert facial emotion analyst. "
                 "Study faces carefully and respond ONLY with valid JSON — "
@@ -124,7 +125,7 @@ def generate_reflection_questions(primary_emotion: str, recent_history: list) ->
 
     response = client.messages.create(
         model=MODEL,
-        max_tokens=400,
+        max_tokens=1024,
         system=(
             "You are a compassionate emotional wellness coach. "
             "Ask warm, non-judgmental, introspective questions. "
@@ -169,7 +170,7 @@ def analyze_patterns(user_name: str, recent_history: list, emotion_counts: list)
 
     response = client.messages.create(
         model=MODEL,
-        max_tokens=600,
+        max_tokens=1024,
         system=(
             "You are an empathetic emotional wellness analyst. "
             "Provide warm, constructive insights — never diagnostic, never alarmist. "
