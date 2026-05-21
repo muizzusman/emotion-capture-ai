@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+captures/
+emotion_data.db
+*.db
+.streamlit/secrets.toml
+venv/
